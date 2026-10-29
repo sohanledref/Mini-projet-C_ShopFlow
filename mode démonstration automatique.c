@@ -1,3 +1,7 @@
+#include.stdio
+#include type.h
+
+
 static void titreEtape(const char *titre)
 {
     printf("\n========== %s ==========\n", titre);
