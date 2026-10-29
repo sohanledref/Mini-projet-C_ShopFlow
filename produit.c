@@ -7,7 +7,7 @@ void menuRechercheProduits(Boutique *b)
 
     printf("Categorie (Entree pour ignorer) : ");
     fgets(categorie, sizeof(categorie), stdin);
-    categorie[strcspn(categorie, "\n")] = '\0';   /* enleve le retour a la ligne */
+    categorie[strcspn(categorie, "\n")] = '\0';   
 
     printf("Mot-cle dans le nom (Entree pour ignorer) : ");
     fgets(motCle, sizeof(motCle), stdin);
@@ -15,7 +15,7 @@ void menuRechercheProduits(Boutique *b)
 
     printf("Prix HT maximum (0 pour ignorer) : ");
     fgets(saisie, sizeof(saisie), stdin);
-    prixMax = (float)atof(saisie);                /* texte -> nombre */
+    prixMax = (float)atof(saisie);                
 
     rechercherProduits(b, categorie, prixMax, motCle);
 }
