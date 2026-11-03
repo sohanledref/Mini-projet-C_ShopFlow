@@ -1,0 +1,3 @@
+struct Promotion *promotions;
+int nbPromotions;
+int capacitePromotions;
