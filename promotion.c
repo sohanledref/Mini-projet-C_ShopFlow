@@ -102,6 +102,27 @@ int verifierCodePromo(const Boutique *b, const char *code, Date dateActuelle, Pr
 
     while (i < b->nbPromotions) {
 
+        if (b->promotions[i].actif == 0) {
+
+            if (dateActuelle.annee < b->promotions[i].dateDebut.annee ||(dateActuelle.annee == b->promotions[i].dateDebut.annee &&
+                dateActuelle.mois < b->promotions[i].dateDebut.mois) ||
+                (dateActuelle.annee == b->promotions[i].dateDebut.annee &&
+                dateActuelle.mois == b->promotions[i].dateDebut.mois &&
+                dateActuelle.jour < b->promotions[i].dateDebut.jour)) {
+    return 0;
+}
+            return 0;
+} 
+
+        if (dateActuelle.annee > b->promotions[i].dateFin.annee ||
+    (dateActuelle.annee == b->promotions[i].dateFin.annee &&
+     dateActuelle.mois > b->promotions[i].dateFin.mois) ||
+    (dateActuelle.annee == b->promotions[i].dateFin.annee &&
+     dateActuelle.mois == b->promotions[i].dateFin.mois &&
+     dateActuelle.jour > b->promotions[i].dateFin.jour)) {
+    return 0;
+}
+        
         if (strcmp(b->promotions[i].code, code) == 0) {
 
             // La vérification du statut et des dates viendra ici.
@@ -114,4 +135,26 @@ int verifierCodePromo(const Boutique *b, const char *code, Date dateActuelle, Pr
     }
 
     return 0;
+}
+int appliquerCodePromo(Commande *c, const Promotion *p) {
+    if (c == NULL || p == NULL) {
+        return 0;
+    }
+
+    if (p->actif == 0) {
+        return 0;
+    }
+
+    if (c->montantHT <= 0) {
+        return 0;
+    }
+
+    c->tauxPromo = p->tauxReduction;
+    c->montantRemisePromo = c->montantHT * c->tauxPromo / 100;
+
+    c->montantHT -= c->montantRemisePromo;
+
+    strcpy(c->codePromo, p->code);
+
+    return 1;
 }
