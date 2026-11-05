@@ -10,7 +10,7 @@ static void lireTexte(char *texte, int taille, const char *message){
 
     printf("%s", message);
 
-    if (fgets(texte, taille, stdin) != NULL){ /*fgestet stdin permettent de lire les inuputs, mieux que scanf car l'utilisateur peut mettre des espaces*/
+    if (fgets(texte, taille, stdin) != NULL){ /*fgets stdin permettent de lire les inuputs, mieux que scanf car l'utilisateur peut mettre des espaces*/
         if (strchr(texte, '\n') != NULL){
             texte[strcspn(texte, "\n")] = '\0'; /*remplace le saut de ligne de fgets par le signe de fin de chaine*/
         } else {
@@ -207,16 +207,13 @@ void supprimerClient(Boutique *b, int idClient)
 
     for (i = 0; i < b->nbClients; i++)
     {
-        if (b->clients[i].idClient == idClient &&
-            b->clients[i].actif == 1)
+        if (b->clients[i].idClient == idClient && b->clients[i].actif == 1)
         {
             for (j = 0; j < b->clients[i].nbCommandes; j++)
             {
-                if (strcmp(b->clients[i].commandes[j].statut,
-                           "ANNULEE") != 0)
+                if (strcmp(b->clients[i].commandes[j].statut, "ANNULEE") != 0)
                 {
-                    printf("Suppression refusee : le client "
-                           "possede une commande non annulee.\n");
+                    printf("Suppression refusee : le client possede une commande non annulee.\n");
                     return;
                 }
             }
